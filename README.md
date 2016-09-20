@@ -1,1 +1,1 @@
-# ttws - Tom Tom Watch Synchronizer Tool
+# ttws - Tom Tom Watch Synchronizer
