@@ -2,9 +2,10 @@
   "name": "ttws",
   "version": "0.0.1",
   "description": "Tom Tom Watch Synchronizer",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron ."
   },
   "repository": {
     "type": "git",
@@ -24,6 +25,8 @@
   },
   "homepage": "https://github.com/Dica-Developer/ttws#readme",
   "dependencies": {
-    "electron": "^1.4.0"
+    "electron": "^1.4.0",
+    "furtive": "^2.2.4",
+    "riot": "^2.6.2"
   }
 }
