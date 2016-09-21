@@ -26,6 +26,7 @@
   "homepage": "https://github.com/Dica-Developer/ttws#readme",
   "dependencies": {
     "electron": "^1.4.0",
+    "font-awesome": "^4.6.3",
     "furtive": "^2.2.4",
     "riot": "^2.6.2"
   }

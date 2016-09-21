@@ -2,18 +2,37 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Hello World!</title>
+    <title>TT Watch Synchronizer</title>
+    <link rel="stylesheet" href="node_modules/furtive/css/furtive.min.css"></link> 
+    <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.min.css">
   </head>
   <body>
-    <h1>Hello World!</h1>
-    <!-- All of the Node.js APIs are available in this renderer process. -->
-    We are using node <script>document.write(process.versions.node)</script>,
-    Chromium <script>document.write(process.versions.chrome)</script>,
-    and Electron <script>document.write(process.versions.electron)</script>.
+    <div class="py2">
+      <div class="txt--center">
+        <h1 class="h2">
+          TTWS<br>
+          <small class="small muted">TT Watch Synchronizer</small>
+        </h1>
+      </div>
+    </div>
+    <div class="py2 bg--off-white">
+      <div class="grd-row my1">
+        <div class="grd-row-col-3-6 txt--center">
+          <i class="fa fa-clock-o" style="font-size: 10em;"></i>
+        </div>
+        <div class="grd-row-col-3-6">
+          <watchversion></watchversion>
+        </div>
+      </div>
+    </div>
+    <script src="watchversion.tag" type="riot/tag"></script>
+    <script src="node_modules/riot/riot+compiler.min.js"></script>
+    <script>
+      riot.mount('watchversion', {})
+    </script>
   </body>
 
   <script>
-    // You can also require other files to run in this process
     require('./renderer.js')
   </script>
 </html>
