@@ -4,7 +4,7 @@
 
 const exec = require('child_process').execFile;
 
-var watchversion = {}; // riot.mount('watchversion', {});
+var watchversion = {};
 riot.compile(function() {
   watchversion = riot.mount('watchversion')[0];
 });
