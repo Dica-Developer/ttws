@@ -1,0 +1,28 @@
+{
+  "env": {
+    "node": false,
+    "browser": true,
+    "es6": true
+  },
+  "globals": {
+    "describe": true,
+    "beforeEach": true,
+    "before": true,
+    "afterEach": true,
+    "after": true,
+    "it": true,
+    "expect": true,
+    "module": true,
+    "inject": true
+  },
+  "rules": {
+    "quotes": [2, "single"],
+    "curly": [2, "all"],
+    "eol-last": [2],
+    "semi": 2
+  },
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaVersion": 6
+  }
+}
