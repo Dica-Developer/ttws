@@ -28,11 +28,8 @@
     <script src="watchversion.tag" type="riot/tag"></script>
     <script src="node_modules/riot/riot+compiler.min.js"></script>
     <script>
-      riot.mount('watchversion', {})
+      require('./renderer.js')
     </script>
   </body>
 
-  <script>
-    require('./renderer.js')
-  </script>
 </html>

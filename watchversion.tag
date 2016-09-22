@@ -1,17 +1,21 @@
 <watchversion>
-  <p>Firmware: { firmware }</p>
-  <p>Model: { model }</p>
-</div>
-  <script>
-    this.firmware = 'x-x-x'
-    this.model = 'x-x-x'
+  <pre><code>{ version }</code></pre>
 
-    updateVersion() {
-      this.update({
-        firmware: 'y-y-y', 
-        model: 'y-y-y' 
-      })
-    }
+  <script>
+    this.version = 'Not yet retrieved.'
+
+    var that = this;
+    this.on('watch.version.succes', function(result) {
+      that.update({
+        version: result
+      });
+    });
+
+    this.on('watch.version.error', function(result) {
+      that.update({
+        version: result
+      });
+    });
 
   </script>
 
