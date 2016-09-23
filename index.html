@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.min.css">
   </head>
   <body>
+    <succesdialog></succesdialog>
     <div class="py2">
       <div class="txt--center">
         <h1 class="h2">
@@ -15,17 +16,25 @@
         </h1>
       </div>
     </div>
-    <div class="py2 bg--off-white">
+    <div class="grd py2 bg--off-white">
+      <div class="grd-row my1">
+        <div class="grd-row-col-6 .brdr--light-gray txt--center">
+          <updatebutton></updatebutton>
+        </div>
+      </div>
       <div class="grd-row my1">
         <div class="grd-row-col-3-6 txt--center">
-          <i class="fa fa-clock-o" style="font-size: 10em;"></i>
+          <icon></icon>
         </div>
         <div class="grd-row-col-3-6">
           <watchversion></watchversion>
         </div>
       </div>
     </div>
-    <script src="watchversion.tag" type="riot/tag"></script>
+    <script src="tags/succesdialog.tag" type="riot/tag"></script>
+    <script src="tags/icon.tag" type="riot/tag"></script>
+    <script src="tags/watchversion.tag" type="riot/tag"></script>
+    <script src="tags/updatebutton.tag" type="riot/tag"></script>
     <script src="node_modules/riot/riot+compiler.min.js"></script>
     <script>
       require('./renderer.js')
