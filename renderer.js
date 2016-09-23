@@ -51,6 +51,36 @@ riot.compile(function() {
     );
   });
 
+  updatebutton.on('watch.update.gps', function() {
+    icon.trigger('watch.progress.start');
+    exec('/usr/local/bin/ttwatch', ['--update-gps'],
+      (error, stdout, stderr) => {
+        if (error !== null) {
+          console.error(error);
+          succesdialog.trigger('watch.succesdialog.message', stderr);
+        } else {
+          succesdialog.trigger('watch.succesdialog.message', stdout);
+        }
+        icon.trigger('watch.progress.stop');
+      }
+    );
+  });
+
+  updatebutton.on('watch.update.time', function() {
+    icon.trigger('watch.progress.start');
+    exec('/usr/local/bin/ttwatch', ['--set-time'],
+      (error, stdout, stderr) => {
+        if (error !== null) {
+          console.error(error);
+          succesdialog.trigger('watch.succesdialog.message', stderr);
+        } else {
+          succesdialog.trigger('watch.succesdialog.message', 'Successfully updated the time on the watc on the watch.');
+        }
+        icon.trigger('watch.progress.stop');
+      }
+    );
+  });
+
   getVersion();
   setInterval(getVersion, 5000);
 });
