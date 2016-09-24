@@ -3,32 +3,47 @@
   <head>
     <meta charset="UTF-8">
     <title>TT Watch Synchronizer</title>
+    <link rel="stylesheet" href="css/main.css"></link> 
     <link rel="stylesheet" href="node_modules/furtive/css/furtive.min.css"></link> 
     <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.min.css">
   </head>
   <body>
     <successdialog></successdialog>
-    <div class="py2">
-      <div class="txt--center">
-        <h1 class="h2">
-          TTWS<br>
-          <small class="small muted">TT Watch Synchronizer</small>
-        </h1>
-      </div>
+    <div class="txt--center">
+      <h1 class="h3">
+        TTWS<br>
+        <small class="small muted">TT Watch Synchronizer</small>
+      </h1>
     </div>
-    <div class="grd py2 bg--off-white">
-      <div class="grd-row my1">
-        <div class="grd-row-col-6 .brdr--light-gray txt--center">
-          <updatebutton></updatebutton>
+    <div class="tabs">
+      <div class="tab">
+        <input type="radio" id="tab-1" name="tab-group-1" checked>
+        <label for="tab-1">Watch</label>
+
+        <div class="content">
+          <div class="grd py2 bg--off-white">
+            <div class="grd-row my1">
+                <div class="grd-row-col-6 .brdr--light-gray txt--center">
+                  <updatebutton></updatebutton>
+                </div>
+              </div>
+            <div class="grd-row my1">
+              <div class="grd-row-col-3-6 txt--center">
+                <icon></icon>
+              </div>
+              <div class="grd-row-col-3-6">
+                <watchversion></watchversion>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="grd-row my1">
-        <div class="grd-row-col-3-6 txt--center">
-          <icon></icon>
-        </div>
-        <div class="grd-row-col-3-6">
-          <watchversion></watchversion>
-        </div>
+      <div class="tab">
+        <input type="radio" id="tab-2" name="tab-group-1">
+        <label for="tab-2">Local Activities</label>
+
+        <div class="content">
+        </div> 
       </div>
     </div>
     <script src="tags/successdialog.tag" type="riot/tag"></script>
