@@ -74,7 +74,22 @@ riot.compile(function() {
           console.error(error);
           successdialog.trigger('watch.successdialog.message', stderr);
         } else {
-          successdialog.trigger('watch.successdialog.message', 'Successfully updated the time on the watc on the watch.');
+          successdialog.trigger('watch.successdialog.message', 'Successfully updated the time on the watch.');
+        }
+        icon.trigger('watch.progress.stop');
+      }
+    );
+  });
+
+  updatebutton.on('watch.download.activities', function() {
+    icon.trigger('watch.progress.start');
+    exec('/usr/local/bin/ttwatch', ['--activity-store=~/.ttws', '--get-activities'],
+      (error, stdout, stderr) => {
+        if (error !== null) {
+          console.error(error);
+          successdialog.trigger('watch.successdialog.message', stderr);
+        } else {
+          successdialog.trigger('watch.successdialog.message', 'Successfully downloaded the latest activities from the watch: ' + stdout);
         }
         icon.trigger('watch.progress.stop');
       }
@@ -86,7 +101,6 @@ riot.compile(function() {
 });
 
 
-// ttwatch --get-activities --activity-store=./ goes under ./<watch name>/<date>/<file.ttbin>
 // ttbincnv -g mascha/2016-09-22/Cycling_16-44-30.ttbin to gpx file
-// ttbincnv -g mascha/2016-09-22/Cycling_16-44-30.ttbin to tcx file
+// ttbincnv -t mascha/2016-09-22/Cycling_16-44-30.ttbin to tcx file
 //

@@ -3,6 +3,7 @@
   <a class="btn--link btn--blue" onclick={ updateFirmware }>Update firmware</a>
   <a class="btn--link btn--blue" onclick={ updateGps }>Update GPSQuickFix</a>
   <a class="btn--link btn--blue" onclick={ updateTime }>Update time</a>
+  <a class="btn--link btn--green" onclick={ downloadActivities }>Get latest activities</a>
 
   <script>
     updateFirmware() {
@@ -13,6 +14,9 @@
     }
     updateTime() {
       this.trigger('watch.update.time');
+    }
+    downloadActivities() {
+      this.trigger('watch.download.activities');
     }
   </script>
 </updatebutton>
