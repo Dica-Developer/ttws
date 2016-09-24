@@ -1,4 +1,4 @@
-// This file is required by the index.html file and will
+// This file is required by the index.html file an will
 // be executed in the renderer process for that window.
 // All of the Node.js APIs are available in this process.
 
@@ -9,12 +9,12 @@ const exec = require('child_process').execFile;
 var watchversion = {};
 var updatebutton = {};
 var icon = {};
-var succesdialog = {};
+var successdialog = {};
 riot.compile(function() {
   watchversion = riot.mount('watchversion')[0];
   updatebutton = riot.mount('updatebutton')[0];
   icon = riot.mount('icon')[0];
-  succesdialog = riot.mount('succesdialog')[0];
+  successdialog = riot.mount('successdialog')[0];
 
   function getVersion() {
     icon.trigger('watch.progress.start');
@@ -22,9 +22,9 @@ riot.compile(function() {
       (error, stdout, stderr) => {
         if (error !== null) {
           console.error(error);
-          watchversion.trigger('watch.version.error', error.message);
+          watchversion.trigger('watch.version.error', 'It seems your watch is not connected.');
         } else {
-          watchversion.trigger('watch.version.succes', stdout);
+          watchversion.trigger('watch.version.success', stdout);
         }
         icon.trigger('watch.progress.stop');
       }
@@ -37,14 +37,14 @@ riot.compile(function() {
       (error, stdout, stderr) => {
         if (error !== null) {
           console.error(error);
-          watchversion.trigger('watch.update.error', error.message);
+          successdialog.trigger('watch.successdialog.message', stderr);
         } else {
           let message = stdout;
           if (message === '') {
-            // Thats a fallback because in case of up to date the output goes to stderr but the app is returning with succes
+            // Thats a fallback because in case of up to date the output goes to stderr but the app is returning with successs
             message = stderr;
           }
-          succesdialog.trigger('watch.succesdialog.message', message);
+          successdialog.trigger('watch.successdialog.message', message);
         }
         icon.trigger('watch.progress.stop');
       }
@@ -57,9 +57,9 @@ riot.compile(function() {
       (error, stdout, stderr) => {
         if (error !== null) {
           console.error(error);
-          succesdialog.trigger('watch.succesdialog.message', stderr);
+          successdialog.trigger('watch.successdialog.message', stderr);
         } else {
-          succesdialog.trigger('watch.succesdialog.message', stdout);
+          successdialog.trigger('watch.successdialog.message', stdout);
         }
         icon.trigger('watch.progress.stop');
       }
@@ -72,9 +72,9 @@ riot.compile(function() {
       (error, stdout, stderr) => {
         if (error !== null) {
           console.error(error);
-          succesdialog.trigger('watch.succesdialog.message', stderr);
+          successdialog.trigger('watch.successdialog.message', stderr);
         } else {
-          succesdialog.trigger('watch.succesdialog.message', 'Successfully updated the time on the watc on the watch.');
+          successdialog.trigger('watch.successdialog.message', 'Successfully updated the time on the watc on the watch.');
         }
         icon.trigger('watch.progress.stop');
       }
