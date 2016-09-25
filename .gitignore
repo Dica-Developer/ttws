@@ -4,3 +4,4 @@ node_modules/
 /cscope.out
 /cscope.in.out
 /env.vim
+*.swp
