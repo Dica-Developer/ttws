@@ -1,6 +1,6 @@
 .tabs {
   position: relative;
-  min-height: 10rem; /* try to calculate automatically the height */
+  height: 96vh;
   clear: both;
   margin: 0.5rem 0rem;
 }
@@ -10,10 +10,10 @@
 .tab label {
   background: #eee; 
   padding: 0.7rem; 
-  border: 1px solid #ccc; 
+  border: 0.1rem solid #ccc; 
   margin-left: -0.1rem; 
   position: relative;
-  left: 1px; 
+  left: 0.1rem; 
 }
 .tab [type=radio] {
   display: none;   
@@ -30,8 +30,8 @@
   border-top-width: 0.1rem;
 }
 [type=radio]:checked ~ label {
-  background: white;
-  border-bottom: 1px solid white;
+  background: rgb(250, 250, 250);
+  border-bottom: 0.1rem solid rgb(250, 250, 250);
   z-index: 2;
 }
 [type=radio]:checked ~ label ~ .content {
