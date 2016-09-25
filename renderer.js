@@ -14,6 +14,7 @@ riot.compile(function() {
   watchversion = riot.mount('watchversion')[0];
   updatebutton = riot.mount('updatebutton')[0];
   icon = riot.mount('icon')[0];
+  filelist = riot.mount('filelist')[0];
   successdialog = riot.mount('successdialog')[0];
 
   function getVersion() {
@@ -83,13 +84,14 @@ riot.compile(function() {
 
   updatebutton.on('watch.download.activities', function() {
     icon.trigger('watch.progress.start');
-    exec('/usr/local/bin/ttwatch', ['--activity-store=~/.ttws', '--get-activities'],
+    exec('/usr/local/bin/ttwatch', ['--activity-store=/home/ms/.ttws', '--get-activities'],
       (error, stdout, stderr) => {
         if (error !== null) {
           console.error(error);
           successdialog.trigger('watch.successdialog.message', stderr);
         } else {
           successdialog.trigger('watch.successdialog.message', 'Successfully downloaded the latest activities from the watch: ' + stdout);
+          filelist.trigger('watch.activities.update');
         }
         icon.trigger('watch.progress.stop');
       }
@@ -103,4 +105,4 @@ riot.compile(function() {
 
 // ttbincnv -g mascha/2016-09-22/Cycling_16-44-30.ttbin to gpx file
 // ttbincnv -t mascha/2016-09-22/Cycling_16-44-30.ttbin to tcx file
-//
+
