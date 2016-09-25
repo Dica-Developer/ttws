@@ -5,7 +5,7 @@
     this.version = 'Not yet retrieved.'
 
     var that = this;
-    this.on('watch.version.succes', function(result) {
+    this.on('watch.version.success', function(result) {
       that.update({
         version: result
       });
