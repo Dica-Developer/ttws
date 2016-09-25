@@ -48,7 +48,7 @@
     function findTtbinFiles(directory) {
       fs.readdir(directory, function (error, files) {
         if (null !== error) {
-          that.trigger('watch.successdialog.message', 'Error on reading local activities: ' + error);
+          that.opts.bus.trigger('watch.successdialog.message', 'Error on reading local activities: ' + error);
         } else {
           let result = collectFiles(files, directory);
           that.update({
@@ -58,7 +58,7 @@
       });
     }
 
-    this.on('watch.activities.update', function() {
+    this.opts.bus.on('watch.activities.update', function() {
       findTtbinFiles('/home/ms/.ttws/');
     });
 

@@ -7,16 +7,16 @@
 
   <script>
     updateFirmware() {
-      this.trigger('watch.update.firmware');
+      this.opts.bus.trigger('watch.update.firmware');
     }
     updateGps() {
-      this.trigger('watch.update.gps');
+      this.opts.bus.trigger('watch.update.gps');
     }
     updateTime() {
-      this.trigger('watch.update.time');
+      this.opts.bus.trigger('watch.update.time');
     }
     downloadActivities() {
-      this.trigger('watch.download.activities');
+      this.opts.bus.trigger('watch.download.activities');
     }
   </script>
 </updatebutton>

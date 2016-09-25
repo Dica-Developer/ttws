@@ -5,13 +5,13 @@
     this.version = 'Not yet retrieved.'
 
     var that = this;
-    this.on('watch.version.success', function(result) {
+    this.opts.bus.on('watch.version.success', function(result) {
       that.update({
         version: result
       });
     });
 
-    this.on('watch.version.error', function(result) {
+    this.opts.bus.on('watch.version.error', function(result) {
       that.update({
         version: result
       });

@@ -5,13 +5,13 @@
     this.className = "fa fa-clock-o";
 
     var that = this;
-    this.on('watch.progress.start', function() {
+    this.opts.bus.on('watch.progress.start', function() {
       that.update({
         className: "fa fa-clock-o fa-spin"
       });
     });
 
-    this.on('watch.progress.stop', function() {
+    this.opts.bus.on('watch.progress.stop', function() {
       that.update({
         className: "fa fa-clock-o"
       });

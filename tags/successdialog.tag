@@ -4,7 +4,7 @@
   <script>
     this.openDialog = '';
     var that = this;
-    this.on('watch.successdialog.message', function (message) {
+    this.opts.bus.on('watch.successdialog.message', function (message) {
       that.update({
         message: message
       });
