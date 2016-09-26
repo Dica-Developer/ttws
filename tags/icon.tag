@@ -1,5 +1,5 @@
 <icon>
-  <i class={ className } style="font-size: 10em;"></i>
+  <i class={ className } style="font-size: 10rem;"></i>
 
   <script>
     this.className = "fa fa-clock-o";

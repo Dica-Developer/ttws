@@ -1,30 +1,23 @@
 <filelist>
-  <div class="oflow-y--hidden bg--off-white p2 py2">
-    <table class="bg--white">
-      <thead>
-        <tr>
-          <th>
-            file
+    <table class="c-table c-table--striped">
+      <thead class="c-table__head">
+        <tr class="c-table__row c-table__row--heading">
+          <th class="c-table__cell">
+            File
           </th>
-          <th>
-            action
+          <th class="c-table__cell">
+            Action
           </th>
         </tr>
       </thead>
-      <tbody>
-        <tr each={ files }>
-          <td>{ name }</td>
-          <td>&nbsp;</td>
+      <tbody class="c-table__body">
+        <tr class="c-table__row" each={ files }>
+          <td class="c-table__cell">{ name }</td>
+          <td class="c-table__cell">&nbsp;</td>
         </tr>
       </tbody>
     </table>
   </div> 
-
-  <style>
-    table {
-      width: 100%;
-    }
-  </style>
 
   <script>
     const fs = require('fs');

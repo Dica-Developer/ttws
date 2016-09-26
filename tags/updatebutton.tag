@@ -1,9 +1,11 @@
 <updatebutton>
 
-  <a class="btn btn--blue" onclick={ updateFirmware }>Update firmware</a>
-  <a class="btn btn--blue" onclick={ updateGps }>Update GPSQuickFix</a>
-  <a class="btn btn--blue" onclick={ updateTime }>Update time</a>
-  <a class="btn btn--green" onclick={ downloadActivities }>Get latest activities</a>
+  <span class="c-button-group">
+    <button class="c-button" onclick={ updateFirmware }>Update firmware</button>
+    <button class="c-button" onclick={ updateGps }>Update GPSQuickFix</button>
+    <button class="c-button" onclick={ updateTime }>Update time</button>
+    <button class="c-button c-button--primary" onclick={ downloadActivities }>Get latest activities</button>
+  </span>
 
   <script>
     updateFirmware() {
