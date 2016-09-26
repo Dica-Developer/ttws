@@ -5,16 +5,12 @@
 const exec = require('child_process').execFile;
 
 var bus = riot.observable();
-var watchversion = {};
-var updatebutton = {};
-var icon = {};
-var successdialog = {};
 riot.compile(function() {
-  watchversion = riot.mount('watchversion', { bus: bus })[0];
-  updatebutton = riot.mount('updatebutton', { bus: bus })[0];
-  icon = riot.mount('icon', { bus: bus })[0];
-  filelist = riot.mount('filelist', { bus: bus })[0];
-  successdialog = riot.mount('successdialog', { bus: bus })[0];
+  riot.mount('watchversion', { bus: bus })[0];
+  riot.mount('updatebutton', { bus: bus })[0];
+  riot.mount('icon', { bus: bus })[0];
+  riot.mount('filelist', { bus: bus })[0];
+  riot.mount('successdialog', { bus: bus })[0];
 
   function getVersion() {
     bus.trigger('watch.progress.start');
