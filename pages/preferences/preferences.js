@@ -18,7 +18,7 @@ function getToken(requestUrl, response) {
     });
     res.on('end', () => {
       accessToken = JSON.parse(data).access_token;
-      bus.trigger('local.activities.convert.success',{/* take the item */});
+      bus.trigger('ttws.connect.strava.success', {'acessToken': accessToken});
       console.log('No more data in response.');
       response.writeHead(200, {
         'Content-Type': 'text/plain'
@@ -28,6 +28,7 @@ function getToken(requestUrl, response) {
   });
   req.end();
   req.on('error', (e) => {
+    // todo inform user
     console.log(`problem with request: ${e.message}`);
   });
 }
@@ -52,6 +53,11 @@ let server = http.createServer(function (request, response) {
 });
 server.listen();
 console.log('Internal server started on port "' + server.address().port + '"');
+
+bus.on('ttws.connect.strava.success', (accessToken) => {
+  console.log(accessToken);
+  // store the access token
+});
 
 bus.on('ttws.connect.strava', () => {
   let stravaRequestAccessUrl = 'https://www.strava.com/oauth/authorize?client_id=13692&redirect_uri=http://localhost:' + server.address().port + '/handle/code&response_type=code&scope=write&state=upload';
