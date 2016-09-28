@@ -29,6 +29,7 @@
     "electron": "^1.4.0",
     "font-awesome": "^4.6.3",
     "riot": "^2.6.2",
-    "riotgear": "^3.5.0"
+    "riotgear": "^3.5.0",
+    "strava-v3": "^1.12.1"
   }
 }

@@ -4,9 +4,79 @@ const app = electron.app;
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow;
 
+const {Menu} = require('electron');
+
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
+
+const menuTemplate = [
+  {
+    label: 'View',
+    submenu: [
+      {
+        label: 'Reload',
+        accelerator: 'CmdOrCtrl+R',
+        click (item, focusedWindow) {
+          if (focusedWindow) {
+            focusedWindow.reload();
+          }
+        }
+      },
+      {
+        label: 'Toggle Developer Tools',
+        accelerator: process.platform === 'darwin' ? 'Alt+Command+I' : 'Ctrl+Shift+I',
+        click (item, focusedWindow) {
+          if (focusedWindow) {
+            focusedWindow.webContents.toggleDevTools();
+          }
+        }
+      },
+      {
+        type: 'separator'
+      },
+      {
+        role: 'resetzoom'
+      },
+      {
+        role: 'zoomin'
+      },
+      {
+        role: 'zoomout'
+      },
+      {
+        type: 'separator'
+      },
+      {
+        role: 'togglefullscreen'
+      }
+    ]
+  },
+  {
+    role: 'window',
+    submenu: [
+      {
+        role: 'minimize'
+      },
+      {
+        role: 'close'
+      }
+    ]
+  },
+  {
+    role: 'help',
+    submenu: [
+      {
+        label: 'Learn More',
+        click () {
+          require('electron').shell.openExternal('https://github.com/Dica-Developer/ttws');
+        }
+      }
+    ]
+  }
+];
+let menu = Menu.buildFromTemplate(menuTemplate);
+Menu.setApplicationMenu(menu);
 
 function createWindow () {
   // Create the browser window.
@@ -14,9 +84,6 @@ function createWindow () {
 
   // and load the index.html of the app.
   mainWindow.loadURL(`file://${__dirname}/index.html`);
-
-  // Open the DevTools.
-  mainWindow.webContents.openDevTools();
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {
@@ -49,5 +116,3 @@ app.on('activate', function () {
   }
 });
 
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and require them here.
