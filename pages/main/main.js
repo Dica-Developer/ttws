@@ -108,28 +108,6 @@ bus.on('local.activities.convert', function(item) {
   );
 });
 
-
-let http = require('http');
-let strava = require('strava-v3');
-let electron = require('electron');
-let url = require('url');
-let server = http.createServer(function (request, response) {
-  let requestUrl = url.parse(request.url, true);
-  if ('GET' === request.method) {
-    if ('/handle/code' === requestUrl.pathname) {
-      console.log(requestUrl.query);
-      getToken(requestUrl, response);
-    } else {
-      response.writeHead(404, {
-        'Content-Type': 'text/plain'
-      });
-      response.end(request.url + ' is not handled by ttws');
-    }
-  }
-});
-server.listen();
-console.log('Internal server started on port "' + server.address().port + '"');
-
 bus.on('local.activities.convert.success', function(item) {
   // get access token
   if (null === accessToken) {
