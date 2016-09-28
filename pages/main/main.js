@@ -1,16 +1,12 @@
-// This file is required by the index.html file an will
-// be executed in the renderer process for that window.
-// All of the Node.js APIs are available in this process.
-
 const exec = require('child_process').execFile;
 
 var bus = riot.observable();
 riot.compile(function() {
-  riot.mount('watchversion', { bus: bus })[0];
-  riot.mount('updatebutton', { bus: bus })[0];
-  riot.mount('icon', { bus: bus })[0];
-  riot.mount('filelist', { bus: bus })[0];
-  riot.mount('successdialog', { bus: bus })[0];
+  riot.mount('watchversion', { bus: bus });
+  riot.mount('updatebutton', { bus: bus });
+  riot.mount('icon', { bus: bus });
+  riot.mount('filelist', { bus: bus });
+  riot.mount('successdialog', { bus: bus });
 
   function getVersion() {
     bus.trigger('watch.progress.start');
@@ -112,37 +108,6 @@ bus.on('local.activities.convert', function(item) {
   );
 });
 
-let accessToken = null;
-let https = require('https');
-function getToken(requestUrl, response) {
-  let options = {
-    hostname: 'ttws-auth-bridge.herokuapp.com',
-    path: '/oauth/token?code=' + requestUrl.query.code + '&client_id=13692',
-    method: 'POST',
-  };
-  let req = https.request(options, (res) => {
-    let data = '';
-    console.log(`STATUS: ${res.statusCode}`);
-    console.log(`HEADERS: ${JSON.stringify(res.headers)}`);
-    res.setEncoding('utf8');
-    res.on('data', (chunk) => {
-      data = data + chunk;
-    });
-    res.on('end', () => {
-      accessToken = JSON.parse(data).access_token;
-      bus.trigger('local.activities.convert.success',{/* take the item */});
-      console.log('No more data in response.');
-      response.writeHead(200, {
-        'Content-Type': 'text/plain'
-      });
-      response.end('The application is now authorized and you can close this tab and return to your application.');
-    });
-  });
-  req.end();
-  req.on('error', (e) => {
-    console.log(`problem with request: ${e.message}`);
-  });
-}
 
 let http = require('http');
 let strava = require('strava-v3');
@@ -166,9 +131,9 @@ server.listen();
 console.log('Internal server started on port "' + server.address().port + '"');
 
 bus.on('local.activities.convert.success', function(item) {
+  // get access token
   if (null === accessToken) {
-    let stravaRequestAccessUrl = 'https://www.strava.com/oauth/authorize?client_id=13692&redirect_uri=http://localhost:' + server.address().port + '/handle/code&response_type=code&scope=write&state=upload';
-    electron.shell.openExternal(stravaRequestAccessUrl);
+    // error message
   } else {
     strava.uploads.post({
       'access_token': accessToken,
