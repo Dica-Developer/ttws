@@ -11,9 +11,9 @@
         </tr>
       </thead>
       <tbody class="c-table__body">
-        <tr class="c-table__row" each={ files }>
+        <tr class="c-table__row" data-path={ path } each={ files }>
           <td class="c-table__cell">{ name }</td>
-          <td class="c-table__cell">&nbsp;</td>
+          <td class="c-table__cell"><i class="fa fa-upload fa-2" aria-hidden="true" style="cursor: pointer;" onclick={ upload }></i></td>
         </tr>
       </tbody>
     </table>
@@ -24,6 +24,10 @@
     var that = this;
 
     this.files=[];
+
+    upload(e) {
+      this.opts.bus.trigger('local.activities.convert', e.item);
+    }
 
     function collectFiles(files, root) {
       let result = new Array();
