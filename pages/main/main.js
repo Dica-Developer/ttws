@@ -115,6 +115,8 @@ bus.on('local.activities.convert.success', function(item) {
     if (null === accessToken || undefined === accessToken) {
       // TODO: notify user about missing access token
     } else {
+      // TODO set activity type and activity kind and set public
+      // TODO move private public default in preferences page
       strava.uploads.post({
         'access_token': accessToken,
         'data_type': item.type,
@@ -125,6 +127,7 @@ bus.on('local.activities.convert.success', function(item) {
       },function(err, payload) {
         // TODO notify user about maybe reconnecting to strava 
         console.log(err);
+        // TODO: clean up file after upload
       });
   }
   });
