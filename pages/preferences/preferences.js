@@ -72,7 +72,9 @@ bus.on('ttws.connect.strava', () => {
 
 bus.on('ttws.disconnect.strava', () => {
   storage.remove('ttws.strava.access_token', (error) => {
-    console.error(error);
+    if (null !== error) {
+      console.error(error);
+    }
   });
 });
 
