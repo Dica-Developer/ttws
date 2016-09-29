@@ -33,5 +33,9 @@
     "riot": "^2.6.2",
     "riotgear": "^3.5.0",
     "strava-v3": "^1.12.1"
+  },
+  "devDependencies": {
+    "electron-builder": "^7.9.0",
+    "electron-installer-debian": "^0.3.1"
   }
 }
