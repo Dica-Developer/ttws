@@ -67,3 +67,10 @@ bus.on('ttws.connect.strava', () => {
   electron.shell.openExternal(stravaRequestAccessUrl);
 });
 
+bus.on('ttws.disconnect.strava', () => {
+  storage.remove('ttws.strava.access_token', (error) => {
+    // todo: notfiy user about error
+  });
+});
+
+//TODO: on startup init with state

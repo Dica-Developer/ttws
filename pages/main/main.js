@@ -111,10 +111,12 @@ bus.on('local.activities.convert', function(item) {
 
 bus.on('local.activities.convert.success', function(item) {
   storage.get('ttws.strava.access_token', (error, data) => {
-    // TODO: handle error
     let accessToken = data.accessToken;
-    if (null === accessToken || undefined === accessToken) {
-      // TODO: notify user about missing access token
+    if (null === accessToken || undefined === accessToken || null !== error) {
+      bus.trigger('watch.successdialog.message', 'You need to connect ttws with your strava account first to be able to upload. Got to the preferences page to do that.');
+      if (null !== error) {
+        console.error(error);
+      }
     } else {
       // TODO move private public default in preferences page
       let activityType = '';
