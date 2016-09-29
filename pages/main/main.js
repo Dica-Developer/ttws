@@ -34,7 +34,7 @@ bus.on('watch.update.firmware', function() {
     (error, stdout, stderr) => {
       if (error !== null) {
         console.error(error);
-       bus.trigger('watch.successdialog.message', stderr);
+        bus.trigger('watch.successdialog.message', stderr);
       } else {
         let message = stdout;
         if (message === '') {
