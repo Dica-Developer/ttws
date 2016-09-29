@@ -140,12 +140,12 @@ bus.on('local.activities.convert.success', function(item) {
             console.log(err);
             message = err.message;
           }
-          if (null !== payload.errors) {
-            if ('' !== payload.message) {
-              message = 'Error on uploading your activitiy: "' + item.name + '". ' + payload.message;
-            }
-          } else {
-            if (null !== payload) {
+          if (null !== payload) {
+            if (null !== payload.errors && undefined !== payload.errors) {
+              if ('' !== payload.message) {
+                message = 'Error on uploading your activitiy: "' + item.name + '". ' + payload.message;
+              }
+            } else {
               if ('' !== payload.error) {
                 message = 'Error on uploading your activitiy: "' + item.name + '". ' + payload.error;
               } else {
