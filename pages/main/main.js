@@ -1,6 +1,7 @@
 const exec = require('child_process').execFile;
 const storage = require('electron-json-storage');
 const strava = require('strava-v3');
+const fs = require('fs');
 
 const bus = riot.observable();
 riot.mount('watchversion', { bus: bus });
@@ -122,14 +123,34 @@ bus.on('local.activities.convert.success', function(item) {
         'data_type': item.type,
         'file': item.name,
         'statusCallback': function(err, payload) {
+          // TODO notify user about maybe reconnecting to strava 
+          let message = 'Something goes wrong and I do not know what.';
+          if (null !== err) {
+            console.log(err);
+            message = err.message;
+          }
+          if (null !== payload) {
+            if ('' !== payload.error) {
+              message = 'Error on uploading your activitiy: "' + item.name + '". ' + payload.error;
+            } else {
+              message = 'Successfully uploaded your activity: "' + item.name + '".';
+            }
+            message = message + ' ' + payload.status;
+          }
+          bus.trigger('watch.successdialog.message', message);
+        }
+      }, function(err, payload) {
+        if (null !== err) {
           console.log(err);
         }
-      },function(err, payload) {
-        // TODO notify user about maybe reconnecting to strava 
-        console.log(err);
-        // TODO: clean up file after upload
+        fs.unlink(item.name, (unlinkError) => {
+          if (null !== unlinkError) {
+            console.error(unlinkError);
+            bus.trigger('watch.successdialog.message', unlinkError.message);
+          }
+        });
       });
-  }
+    }
   });
 });
 
