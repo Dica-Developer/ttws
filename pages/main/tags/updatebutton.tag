@@ -4,7 +4,7 @@
     <button class="c-button" onclick={ updateFirmware }>Update firmware</button>
     <button class="c-button" onclick={ updateGps }>Update GPSQuickFix</button>
     <button class="c-button" onclick={ updateTime }>Update time</button>
-    <button class="c-button c-button--primary" onclick={ downloadActivities }>Get latest activities</button>
+    <button id="getlatestactivitiesbutton" class="c-button c-button--primary" onclick={ downloadActivities }><span style="text-decoration: underline;">G</span>et latest activities</button>
   </span>
 
   <script>
@@ -20,6 +20,10 @@
     downloadActivities() {
       this.opts.bus.trigger('watch.download.activities');
     }
+    Mousetrap.bind(['alt+g'], function() {
+      document.getElementById('getlatestactivitiesbutton').click();
+      return false;
+    });
   </script>
 </updatebutton>
 

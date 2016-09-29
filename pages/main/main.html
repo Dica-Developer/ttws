@@ -11,8 +11,8 @@
     <successdialog></successdialog>
     <div class="c-tabs">
       <div class="c-tabs__headings">
-        <div id="watchtab" onclick="changeTab('watchtab', 'watchcontent')" class="c-tab-heading c-tab-heading--active">Watch</div>
-        <div id="localactivitiestab" onclick="changeTab('localactivitiestab', 'localactivitiescontent')" class="c-tab-heading c-tab-heading">Local Activities</div>
+        <div id="watchtab" onclick="changeTab('watchtab', 'watchcontent')" class="c-tab-heading c-tab-heading--active"><span style="text-decoration: underline;">W</span>atch</div>
+        <div id="localactivitiestab" onclick="changeTab('localactivitiestab', 'localactivitiescontent')" class="c-tab-heading c-tab-heading">Local <span style="text-decoration: underline;">A</span>ctivities</div>
       </div>
       <div id="watchcontent" class="c-tabs__tab c-tabs__tab--active">
         <div class="o-grid o-grid--wrap o-grid--center">
@@ -32,6 +32,7 @@
       </div>
     </div>
 
+    <script src="../../node_modules/mousetrap/mousetrap.min.js"></script>
     <script src="tags/successdialog.tag" type="riot/tag"></script>
     <script src="tags/filelist.tag" type="riot/tag"></script>
     <script src="tags/icon.tag" type="riot/tag"></script>
@@ -48,6 +49,16 @@
         document.getElementById(contentId).classList.toggle('c-tabs__tab--active');
         document.getElementById(tabId).classList.toggle('c-tab-heading--active');
       }
+
+      Mousetrap.bind(['alt+a'], function() {
+        document.getElementById('localactivitiestab').click();
+        return false;
+      });
+
+      Mousetrap.bind(['alt+w'], function() {
+        document.getElementById('watchtab').click();
+        return false;
+      });
     </script>
   </body>
 

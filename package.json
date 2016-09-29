@@ -29,6 +29,7 @@
     "electron": "^1.4.0",
     "electron-json-storage": "^2.0.0",
     "font-awesome": "^4.6.3",
+    "mousetrap": "^1.6.0",
     "riot": "^2.6.2",
     "riotgear": "^3.5.0",
     "strava-v3": "^1.12.1"
