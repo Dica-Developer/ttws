@@ -116,12 +116,23 @@ bus.on('local.activities.convert.success', function(item) {
     if (null === accessToken || undefined === accessToken) {
       // TODO: notify user about missing access token
     } else {
-      // TODO set activity type and activity kind and set public
       // TODO move private public default in preferences page
+      let activityType = '';
+      if (item.name.startsWith('Running')) {
+        activityType = 'run';
+      } else if (item.name.startsWith('Cycling')) {
+        activityType = 'ride';
+      } else {
+        console.warn('I cannot automatically detect the activity type of the file "' + item.name + '". Please report this to ttws and include this message. Thanks.');
+      }
       strava.uploads.post({
         'access_token': accessToken,
         'data_type': item.type,
         'file': item.name,
+        'private': 0,
+        'description': item.name,
+        'commute': 0,
+        'activity_type': activityType,
         'statusCallback': function(err, payload) {
           // TODO notify user about maybe reconnecting to strava 
           let message = 'Something goes wrong and I do not know what.';
