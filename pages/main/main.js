@@ -95,7 +95,7 @@ bus.on('watch.download.activities', function() {
 });
 
 bus.on('local.activities.convert', function(item) {
-  bus.trigger('watch.progress.start');
+  bus.trigger('watch.activities.upload.progress.start', item);
   exec('/usr/local/bin/ttbincnv', ['-t', item.path],
     (error, stdout, stderr) => {
       if (error !== null) {
@@ -104,7 +104,6 @@ bus.on('local.activities.convert', function(item) {
       } else {
         bus.trigger('local.activities.convert.success', {name: item.name.replace('.ttbin', '.tcx'), type: 'tcx'});
       }
-      bus.trigger('watch.progress.stop');
     }
   );
 });
@@ -156,6 +155,7 @@ bus.on('local.activities.convert.success', function(item) {
             }
           }
           bus.trigger('watch.successdialog.message', message);
+          bus.trigger('watch.activities.upload.progress.stop', { name: item.name.replace('.tcx', '.ttbin') });
         }
       }, function(err, payload) {
         if (null !== err) {

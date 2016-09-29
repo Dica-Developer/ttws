@@ -13,7 +13,8 @@
       <tbody class="c-table__body">
         <tr class="c-table__row" data-path={ path } each={ files }>
           <td class="c-table__cell">{ name }</td>
-          <td class="c-table__cell"><i class="fa fa-upload fa-2" aria-hidden="true" style="cursor: pointer;" onclick={ upload }></i></td>
+          <td class="c-table__cell"><i class="fa fa-upload fa-2" aria-hidden="true" style="cursor: pointer;" onclick={ upload }></i><i id={ name } style="display:none;" class="fa fa-circle-o-notch fa-spin fa-2 fa-fw"></i>
+</td>
         </tr>
       </tbody>
     </table>
@@ -54,6 +55,14 @@
         }
       });
     }
+
+    this.opts.bus.on('watch.activities.upload.progress.start', function(item) {
+      document.getElementById(item.name).style.display = 'block';
+    });
+
+    this.opts.bus.on('watch.activities.upload.progress.stop', function(item) {
+      document.getElementById(item.name).style.display = 'none';
+    });
 
     this.opts.bus.on('watch.activities.update', function() {
       findTtbinFiles('/home/ms/.ttws/');
