@@ -18,6 +18,9 @@
     disconnectFromStrava() {
       this.opts.bus.trigger('ttws.disconnect.strava');
     }
+    this.opts.bus.on('ttws.connect.strava.already', () => {
+      that.update({connected: true});
+    });
     this.opts.bus.on('ttws.connect.strava.success', () => {
       that.update({connected: true});
     });

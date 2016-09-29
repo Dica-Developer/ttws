@@ -3,6 +3,7 @@ const storage = require('electron-json-storage');
 
 const bus = riot.observable();
 riot.mount('stravaauthbutton', { bus: bus });
+riot.mount('successdialog', { bus: bus });
 
 function getToken(requestUrl, response) {
   let options = {
@@ -30,7 +31,7 @@ function getToken(requestUrl, response) {
   });
   req.end();
   req.on('error', (e) => {
-    // todo inform user
+    bus.trigger('watch.successdialog.message', 'Error on requesting the strava access token: ' + error.message);
     console.log(`problem with request: ${e.message}`);
   });
 }
@@ -58,7 +59,9 @@ console.log('Internal server started on port "' + server.address().port + '"');
 
 bus.on('ttws.connect.strava.success', (accessToken) => {
   storage.set('ttws.strava.access_token', accessToken, (error) => {
-    // todo: notfiy user about error
+    if (null !== error) {
+      bus.trigger('watch.successdialog.message', 'Cannot store the strava access token: ' + error.message);
+    }
   });
 });
 
@@ -69,8 +72,17 @@ bus.on('ttws.connect.strava', () => {
 
 bus.on('ttws.disconnect.strava', () => {
   storage.remove('ttws.strava.access_token', (error) => {
-    // todo: notfiy user about error
+    console.error(error);
   });
 });
 
-//TODO: on startup init with state
+storage.has('ttws.strava.access_token', function(error, hasKey) {
+  if (null !== error) {
+    console.error(error);
+  } else {
+    if (hasKey) {
+      bus.trigger('ttws.connect.strava.already');
+    }
+  }
+});
+
