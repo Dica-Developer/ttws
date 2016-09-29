@@ -1,6 +1,8 @@
 const exec = require('child_process').execFile;
-const bus = riot.observable();
+const storage = require('electron-json-storage');
+const strava = require('strava-v3');
 
+const bus = riot.observable();
 riot.mount('watchversion', { bus: bus });
 riot.mount('updatebutton', { bus: bus });
 riot.mount('icon', { bus: bus });
@@ -43,7 +45,7 @@ bus.on('watch.update.firmware', function() {
       bus.trigger('watch.progress.stop');
     }
   );
-  });
+});
 
 bus.on('watch.update.gps', function() {
   bus.trigger('watch.progress.start');
@@ -107,20 +109,24 @@ bus.on('local.activities.convert', function(item) {
 });
 
 bus.on('local.activities.convert.success', function(item) {
-  // get access token
-  if (null === accessToken) {
-    // error message
-  } else {
-    strava.uploads.post({
-      'access_token': accessToken,
-      'data_type': item.type,
-      'file': item.name,
-      'statusCallback': function(err, payload) {
+  storage.get('ttws.strava.access_token', (error, data) => {
+    // TODO: handle error
+    let accessToken = data.accessToken;
+    if (null === accessToken || undefined === accessToken) {
+      // TODO: notify user about missing access token
+    } else {
+      strava.uploads.post({
+        'access_token': accessToken,
+        'data_type': item.type,
+        'file': item.name,
+        'statusCallback': function(err, payload) {
+          console.log(err);
+        }
+      },function(err, payload) {
+        // TODO notify user about maybe reconnecting to strava 
         console.log(err);
-      }
-    },function(err, payload) {
-      console.log(err);
-    });
+      });
   }
+  });
 });
 

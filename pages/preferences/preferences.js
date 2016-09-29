@@ -1,6 +1,8 @@
-let bus = riot.observable();
+const https = require('https');
+const storage = require('electron-json-storage');
+
+const bus = riot.observable();
 riot.mount('stravaauthbutton', { bus: bus });
-let https = require('https');
 
 function getToken(requestUrl, response) {
   let options = {
@@ -18,7 +20,7 @@ function getToken(requestUrl, response) {
     });
     res.on('end', () => {
       accessToken = JSON.parse(data).access_token;
-      bus.trigger('ttws.connect.strava.success', {'acessToken': accessToken});
+      bus.trigger('ttws.connect.strava.success', {'accessToken': accessToken});
       console.log('No more data in response.');
       response.writeHead(200, {
         'Content-Type': 'text/plain'
@@ -55,8 +57,9 @@ server.listen();
 console.log('Internal server started on port "' + server.address().port + '"');
 
 bus.on('ttws.connect.strava.success', (accessToken) => {
-  console.log(accessToken);
-  // store the access token
+  storage.set('ttws.strava.access_token', accessToken, (error) => {
+    // todo: notfiy user about error
+  });
 });
 
 bus.on('ttws.connect.strava', () => {
