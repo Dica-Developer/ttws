@@ -6,6 +6,9 @@
             File
           </th>
           <th class="c-table__cell">
+            Time
+          </th>
+          <th class="c-table__cell">
             Action
           </th>
         </tr>
@@ -13,6 +16,7 @@
       <tbody class="c-table__body">
         <tr class="c-table__row" data-path={ path } each={ files }>
           <td class="c-table__cell">{ name }</td>
+          <td class="c-table__cell">{ mtime }</td>
           <td class="c-table__cell"><i class="fa fa-upload fa-2" aria-hidden="true" style="cursor: pointer;" onclick={ upload }></i><i id={ name } style="display:none;" class="fa fa-circle-o-notch fa-spin fa-2 fa-fw"></i>
 </td>
         </tr>
@@ -30,16 +34,28 @@
       this.opts.bus.trigger('local.activities.convert', e.item);
     }
 
+    function compareByTime(fileA, fileB) {
+      let result = 0;
+      if (fileA.mtime > fileB.mtime) {
+        result = -1;
+      } else if (fileA.mtime < fileB.mtime) {
+        result = 1;
+      }
+      return result;
+    }
+
     function collectFiles(files, root) {
       let result = new Array();
       for (index in files) {
-        if (fs.statSync(root +  files[index]).isDirectory()) {
+        let status = fs.statSync(root +  files[index]);
+        if (status.isDirectory()) {
           let rootDir = root + files[index] + '/';
           Array.prototype.push.apply(result, collectFiles(fs.readdirSync(rootDir), rootDir));
         } else {
-          result.push({name: files[index], path: root + files[index]});
+          result.push({name: files[index], path: root + files[index], mtime: status.mtime });
         }
       }
+      result.sort(compareByTime);
       return result;
     }
 
