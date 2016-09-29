@@ -136,19 +136,24 @@ bus.on('local.activities.convert.success', function(item) {
         'commute': 0,
         'activity_type': activityType,
         'statusCallback': function(err, payload) {
-          // TODO notify user about maybe reconnecting to strava 
           let message = 'Something goes wrong and I do not know what.';
           if (null !== err) {
             console.log(err);
             message = err.message;
           }
-          if (null !== payload) {
-            if ('' !== payload.error) {
-              message = 'Error on uploading your activitiy: "' + item.name + '". ' + payload.error;
-            } else {
-              message = 'Successfully uploaded your activity: "' + item.name + '".';
+          if (null !== payload.errors) {
+            if ('' !== payload.message) {
+              message = 'Error on uploading your activitiy: "' + item.name + '". ' + payload.message;
             }
-            message = message + ' ' + payload.status;
+          } else {
+            if (null !== payload) {
+              if ('' !== payload.error) {
+                message = 'Error on uploading your activitiy: "' + item.name + '". ' + payload.error;
+              } else {
+                message = 'Successfully uploaded your activity: "' + item.name + '".';
+              }
+              message = message + ' ' + payload.status;
+            }
           }
           bus.trigger('watch.successdialog.message', message);
         }
