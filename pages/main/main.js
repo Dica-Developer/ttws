@@ -124,27 +124,30 @@ bus.on('local.activities.convert.success', function(item) {
       } else if (item.name.startsWith('Cycling')) {
         activityType = 'ride';
       } else {
-        console.warn('I cannot automatically detect the activity type of the file "' + item.name + '". Please report this to ttws and include this message. Thanks.');
+        console.warn('ttws cannot automatically detect the activity type of the file "' + item.name + '". Please report this to ttws and include this message. Thanks.');
       }
       strava.uploads.post({
         'access_token': accessToken,
         'data_type': item.type,
         'file': item.name,
+        // TODO setting to public seems not to work
         'private': 0,
         'description': item.name,
         'commute': 0,
         'activity_type': activityType,
         'statusCallback': function(err, payload) {
-          let message = 'Something goes wrong and I do not know what.';
+          let message = 'ttws did not know if the upload succeeded. The reason could be that the Strava API changed. Please report this situation to ttws with as much details as possible. Thank you.';
           if (null !== err) {
             console.log(err);
             message = err.message;
           }
           if (null !== payload) {
             if (null !== payload.errors && undefined !== payload.errors) {
+              // TODO this seem to happen also on good cases
               if ('' !== payload.message) {
                 message = 'Error on uploading your activitiy: "' + item.name + '". ' + payload.message;
               }
+              // TODO think about a message for the else case
             } else {
               if ('' !== payload.error) {
                 message = 'Error on uploading your activitiy: "' + item.name + '". ' + payload.error;

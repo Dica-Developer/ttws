@@ -26,7 +26,7 @@ function getToken(requestUrl, response) {
       response.writeHead(200, {
         'Content-Type': 'text/plain'
       });
-      response.end('The application is now authorized and you can close this tab and return to your application.');
+      response.end('The application is now authorized and ready to upload your activities to Strava. You can close this tab and return to your application.');
     });
   });
   req.end();
