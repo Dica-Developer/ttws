@@ -3,6 +3,7 @@ const storage = require('electron-json-storage');
 
 const bus = riot.observable();
 riot.mount('stravaauthbutton', { bus: bus });
+riot.mount('stravapublicuploadcheckbox', { bus: bus });
 riot.mount('successdialog', { bus: bus });
 
 function getToken(requestUrl, response) {
@@ -84,6 +85,46 @@ storage.has('ttws.strava.access_token', function(error, hasKey) {
   } else {
     if (hasKey) {
       bus.trigger('ttws.connect.strava.already');
+    }
+  }
+});
+
+bus.on('ttws.strava.upload.private', () => {
+  storage.set('ttws.strava.upload.public', false, (error) => {
+    if (null !== error) {
+      bus.trigger('watch.successdialog.message', 'Cannot store the strava public upload flag: ' + error.message);
+    } else {
+      bus.trigger('ttws.strava.upload.private.success');
+    }
+  });
+});
+
+bus.on('ttws.strava.upload.public', () => {
+  storage.set('ttws.strava.upload.public', true, (error) => {
+    if (null !== error) {
+      bus.trigger('watch.successdialog.message', 'Cannot store the strava public upload flag: ' + error.message);
+    } else {
+      bus.trigger('ttws.strava.upload.public.success');
+    }
+  });
+});
+
+storage.has('ttws.strava.upload.public', (error, hasKey) => {
+  if (null !== error) {
+    console.error(error);
+  } else {
+    if (hasKey) {
+      storage.get('ttws.strava.upload.public', (errorGet, value) => {
+        if (null !== errorGet) {
+          console.error(errorGet);
+        } else {
+          if (true === value) {
+            bus.trigger('ttws.strava.upload.public.already');
+          } else {
+            bus.trigger('ttws.strava.upload.private.already');
+          }
+        }
+      });
     }
   }
 });
