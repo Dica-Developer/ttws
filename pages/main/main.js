@@ -108,6 +108,32 @@ bus.on('local.activities.convert', function(item) {
   );
 });
 
+function stravaStatusCallback(err, payload) {
+  let message = 'ttws did not know if the upload succeeded. The reason could be that the Strava API changed. Please report this situation to ttws with as much details as possible. Thank you.';
+  if (null !== err) {
+    console.log(err);
+    message = err.message;
+  }
+  if (null !== payload) {
+    if (null !== payload.errors && undefined !== payload.errors) {
+      // TODO this seem to happen also on good cases
+      if ('' !== payload.message) {
+        message = 'Error on uploading your activitiy: "' + item.name + '". ' + payload.message;
+      }
+      // TODO think about a message for the else case
+    } else {
+      if ('' !== payload.error) {
+        message = 'Error on uploading your activitiy: "' + item.name + '". ' + payload.error;
+      } else {
+        message = 'Successfully uploaded your activity: "' + item.name + '".';
+      }
+      message = message + ' ' + payload.status;
+    }
+  }
+  bus.trigger('watch.successdialog.message', message);
+  bus.trigger('watch.activities.upload.progress.stop', { name: item.name.replace('.tcx', '.ttbin') });
+}
+
 bus.on('local.activities.convert.success', function(item) {
   storage.get('ttws.strava.access_token', (error, data) => {
     let accessToken = data.accessToken;
@@ -117,59 +143,43 @@ bus.on('local.activities.convert.success', function(item) {
         console.error(error);
       }
     } else {
-      // TODO move private public default in preferences page
-      let activityType = '';
-      if (item.name.startsWith('Running')) {
-        activityType = 'run';
-      } else if (item.name.startsWith('Cycling')) {
-        activityType = 'ride';
-      } else {
-        console.warn('ttws cannot automatically detect the activity type of the file "' + item.name + '". Please report this to ttws and include this message. Thanks.');
-      }
-      strava.uploads.post({
-        'access_token': accessToken,
-        'data_type': item.type,
-        'file': item.name,
-        // TODO setting to public seems not to work
-        'private': 0,
-        'description': item.name,
-        'commute': 0,
-        'activity_type': activityType,
-        'statusCallback': function(err, payload) {
-          let message = 'ttws did not know if the upload succeeded. The reason could be that the Strava API changed. Please report this situation to ttws with as much details as possible. Thank you.';
-          if (null !== err) {
-            console.log(err);
-            message = err.message;
+      storage.get('ttws.strava.upload.public', (errorPublicUpload, isPublicUpload) => {
+        if (null !== errorPublicUpload) {
+          bus.trigger('watch.successdialog.message', 'Error on reading public upload state preference.');
+          console.error(errorPublicUpload);
+        } else {
+          let activityType = '';
+          if (item.name.startsWith('Running')) {
+            activityType = 'run';
+          } else if (item.name.startsWith('Cycling')) {
+            activityType = 'ride';
+          } else {
+            console.warn('ttws cannot automatically detect the activity type of the file "' + item.name + '", if you think it should. Please report this to ttws and include this message. Thanks.');
           }
-          if (null !== payload) {
-            if (null !== payload.errors && undefined !== payload.errors) {
-              // TODO this seem to happen also on good cases
-              if ('' !== payload.message) {
-                message = 'Error on uploading your activitiy: "' + item.name + '". ' + payload.message;
-              }
-              // TODO think about a message for the else case
-            } else {
-              if ('' !== payload.error) {
-                message = 'Error on uploading your activitiy: "' + item.name + '". ' + payload.error;
-              } else {
-                message = 'Successfully uploaded your activity: "' + item.name + '".';
-              }
-              message = message + ' ' + payload.status;
+          let uploadPayload = {
+            'access_token': accessToken,
+            'data_type': item.type,
+            'file': item.name,
+            'description': item.name,
+            'commute': 0,
+            'activity_type': activityType,
+            'statusCallback': stravaStatusCallback
+          };
+          if (true !== isPublicUpload) {
+            uploadPayload.private = 1;
+          }
+          strava.uploads.post(uploadPayload, function(err, payload) {
+            if (null !== err) {
+              console.log(err);
             }
-          }
-          bus.trigger('watch.successdialog.message', message);
-          bus.trigger('watch.activities.upload.progress.stop', { name: item.name.replace('.tcx', '.ttbin') });
+            fs.unlink(item.name, (unlinkError) => {
+              if (null !== unlinkError) {
+                console.error(unlinkError);
+                bus.trigger('watch.successdialog.message', unlinkError.message);
+              }
+            });
+          });
         }
-      }, function(err, payload) {
-        if (null !== err) {
-          console.log(err);
-        }
-        fs.unlink(item.name, (unlinkError) => {
-          if (null !== unlinkError) {
-            console.error(unlinkError);
-            bus.trigger('watch.successdialog.message', unlinkError.message);
-          }
-        });
       });
     }
   });
