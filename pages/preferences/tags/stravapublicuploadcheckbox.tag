@@ -1,7 +1,12 @@
 <stravapublicuploadcheckbox>
 
-  <label class="c-label c-label--xlarge">Upload activities to Strava as public.</label>
-  <input type="checkbox" class="a-toogle c-choice--xlarge" checked={ public } onclick={ setUploadState }></input>
+  <label class="c-toggle c-toggle--error u-super">
+    <input type="checkbox" checked={ public } onclick={ setUploadState }>
+    <div class="c-toggle__track">
+      <div class="c-toggle__handle"></div>
+    </div>
+    Upload activities to Strava as public.
+  </label>
 
   <script>
     this.public = "";
