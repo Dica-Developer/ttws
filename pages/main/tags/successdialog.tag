@@ -1,17 +1,18 @@
 <successdialog>
-  <div class="c-overlay a-overlay" style="display: none;"></div>
-  <div class="c-modal a-modal" style="display: none;>
-    <header class="c-modal__header">
-      <button type="button" class="c-button c-button--close">×</button>
-    </header>
+  <div class="c-overlay" style="display: none;"></div>
+  <div class="o-modal u-highest" style="display: none;>
+    <div class="c-card">
+      <header class="c-card__header">
+        <button type="button" class="c-button c-button--close">×</button>
+      </header>
 
-    <div class="c-modal__body">
-      { message }
-    </div>
+      <div class="c-card__body">
+        { message }
+      </div>
 
-    <footer class="c-modal__footer">
-      <button onclick={ closeDialog } type="button" class="c-button c-button--primary">Close</button>
-    </footer>
+      <footer class="c-card__footer">
+        <button onclick={ closeDialog } type="button" class="c-button c-button--brand">Close</button>
+      </footer>
   </div>
 
   <script>
@@ -21,13 +22,13 @@
       that.update({
         message: message
       });
-      document.querySelector('.a-modal').style.display = 'block';
-      document.querySelector('.a-overlay').style.display = 'block';
+      document.querySelector('.o-modal').style.display = 'block';
+      document.querySelector('.c-overlay').style.display = 'block';
     });
 
     closeDialog() {
-      document.querySelector('.a-modal').style.display = 'none';
-      document.querySelector('.a-overlay').style.display = 'none';
+      document.querySelector('.o-modal').style.display = 'none';
+      document.querySelector('.c-overlay').style.display = 'none';
     }
   </script>
 </successdialog>

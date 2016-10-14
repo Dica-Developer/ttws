@@ -17,7 +17,7 @@
         <tr class="c-table__row" data-path={ path } each={ files }>
           <td class="c-table__cell">{ name }</td>
           <td class="c-table__cell">{ mtime }</td>
-          <td class="c-table__cell" style="zoom: 2;"><i title="Upload activity" class="fa fa-upload fa-2" aria-hidden="true" style="cursor: pointer;" onclick={ upload }></i><i title="Upload in progress" id={ name } style="display:none;" class="fa fa-circle-o-notch fa-spin fa-2 fa-fw"></i>
+          <td class="c-table__cell u-super"><i title="Upload activity" class="fa fa-upload fa-2" aria-hidden="true" style="cursor: pointer;" onclick={ upload }></i><i title="Upload in progress" id={ name } style="display:none;" class="fa fa-circle-o-notch fa-spin fa-2 fa-fw"></i>
 </td>
         </tr>
       </tbody>

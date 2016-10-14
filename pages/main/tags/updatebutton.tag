@@ -4,7 +4,7 @@
     <button class="c-button" onclick={ updateFirmware }>Update firmware</button>
     <button class="c-button" onclick={ updateGps }>Update GPSQuickFix</button>
     <button class="c-button" onclick={ updateTime }>Update time</button>
-    <button id="getlatestactivitiesbutton" class="c-button c-button--primary" onclick={ downloadActivities }><span style="text-decoration: underline;">G</span>et latest activities</button>
+    <button id="getlatestactivitiesbutton" class="c-button c-button--brand" onclick={ downloadActivities }><span style="text-decoration: underline;">G</span>et latest activities</button>
   </span>
 
   <script>
