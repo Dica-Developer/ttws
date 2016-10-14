@@ -108,7 +108,7 @@ bus.on('local.activities.convert', function(item) {
   );
 });
 
-function stravaStatusCallback(err, payload) {
+function stravaStatusCallback(err, payload, item) {
   let message = 'ttws did not know if the upload succeeded. The reason could be that the Strava API changed. Please report this situation to ttws with as much details as possible. Thank you.';
   if (null !== err) {
     console.log(err);
@@ -163,7 +163,10 @@ bus.on('local.activities.convert.success', function(item) {
             'description': item.name,
             'commute': 0,
             'activity_type': activityType,
-            'statusCallback': stravaStatusCallback
+            'statusCallback': function (err, payload) {
+              let uploadItem = item;
+              stravaStatusCallback(err, payload, uploadItem);
+            }
           };
           if (true !== isPublicUpload) {
             uploadPayload.private = 1;
