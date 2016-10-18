@@ -5,6 +5,7 @@ const bus = riot.observable();
 riot.mount('stravaauthbutton', { bus: bus });
 riot.mount('stravapublicuploadcheckbox', { bus: bus });
 riot.mount('successdialog', { bus: bus });
+riot.mount('stravalogo', { bus: bus });
 
 function getToken(requestUrl, response) {
   let options = {

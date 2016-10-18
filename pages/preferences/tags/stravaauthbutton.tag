@@ -1,13 +1,15 @@
 <stravaauthbutton>
 
-  <button hide={ connected }  class="c-button c-button--block c-button--error u-super" onclick={ connectToStrava } style="white-space: normal;">
-    <i class="fa fa-chain-broken" aria-hidden="true"></i>
-    Connect to strava for uploading results
-  </button>
-  <button show={ connected } class="c-button c-button--block c-button--error u-super" onclick={ disconnectFromStrava } style="white-space: normal;">
-    <i class="fa fa-link" aria-hidden="true"></i>
-    Disconnect from strava for uploading results
-  </button>
+  <img onclick={ connectToStrava } class="o-image" src="images/btn_strava_connectwith_orange.svg"></img>
+  <label class="c-toggle u-super">
+    <input hide={ connected } type="checkbox" disabled="">
+    <input show={ connected } type="checkbox" disabled="" checked="">
+    <div class="c-toggle__track">
+      <div class="c-toggle__handle"></div>
+    </div>
+    <span hide={ connected }>Disconnected</span>
+    <span show={ connected }>Connected</span>
+  </label>
 
   <script>
     this.connected = false;
