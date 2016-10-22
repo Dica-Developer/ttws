@@ -94,11 +94,7 @@ function uploadToStrava(item, accessToken, isPublicUpload) {
           console.error(err);
           message = err.message;
         } else if (null !== payload) {
-          if ((null !== payload.errors && undefined !== payload.errors) || '' !== payload.error) {
-            // TODO this seem to happen also on good cases
-            if (payload.errors) {
-              console.log(payload.errors); 
-            }
+          if ((null !== payload.errors && undefined !== payload.errors) || (undefined !== payload.error && null !== payload.error && '' !== payload.error)) {
             message = 'Error on uploading your activitiy: "' + item.name + '". ';
             if ('' !== payload.error) {
               message = message + payload.error;
