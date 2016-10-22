@@ -5,3 +5,4 @@ node_modules/
 /cscope.in.out
 /env.vim
 *.swp
+.jsx.tags
