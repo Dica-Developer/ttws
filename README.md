@@ -8,6 +8,12 @@ the firmware, GPSQuickFix and time of the watch. It shows also metadata like fir
 You need to have the ttwatch utility pre-installed on your system.
 Later versions of ttws may have them included.
 
+## Installation
+
+1. Download the latest release from the [releae page](https://github.com/Dica-Developer/ttws/releases)
+2. Install it by double-click the deb file or type in a terminal `sudo dpkg -i <path to file>`
+3. Now you can start it by typing `ttws` in a terminal or your application finder
+
 ## Start the application from the source code
 
 1. Install [nodejs+npm](https://nodejs.org/) (I recommend to use [nvm](https://github.com/creationix/nvm) for that)
