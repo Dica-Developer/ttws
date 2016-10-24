@@ -10,7 +10,7 @@ Later versions of ttws may have them included.
 
 ## Installation
 
-1. Download the latest release from the [releae page](https://github.com/Dica-Developer/ttws/releases)
+1. Download the latest release from the [release page](https://github.com/Dica-Developer/ttws/releases)
 2. Install it by double-click the deb file or type in a terminal `sudo dpkg -i <path to file>`
 3. Now you can start it by typing `ttws` in a terminal or your application finder
 
