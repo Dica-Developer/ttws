@@ -1,11 +1,13 @@
 {
   "name": "ttws",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Tom Tom Watch Synchronizer",
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "electron ."
+    "start": "node_modules/.bin/electron .",
+    "build": "node_modules/.bin/electron-packager . ttws --platform linux --arch x64 --out dist/ --ignore \"(dist|node_modules/electron.*)\"",
+    "deb64": "node_modules/.bin/electron-installer-debian --src dist/ttws-linux-x64/ --dest dist/installers/ --arch amd64"
   },
   "repository": {
     "type": "git",
@@ -23,7 +25,7 @@
   "bugs": {
     "url": "https://github.com/Dica-Developer/ttws/issues"
   },
-  "homepage": "https://github.com/Dica-Developer/ttws#readme",
+  "homepage": "https://github.com/Dica-Developer/ttws",
   "dependencies": {
     "blaze": "^3.0.0",
     "electron": "^1.4.0",
@@ -34,7 +36,7 @@
     "strava-v3": "^1.12.1"
   },
   "devDependencies": {
-    "electron-builder": "^7.9.0",
-    "electron-installer-debian": "^0.3.1"
+    "electron-installer-debian": "^0.3.1",
+    "electron-packager": "^8.1.0"
   }
 }
