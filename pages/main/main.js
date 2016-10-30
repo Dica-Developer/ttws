@@ -207,19 +207,19 @@ bus.on('local.activities.convert', function(item) {
   bus.trigger('watch.activities.upload.progress.start', item);
   Promise.all([convertTtbin(item), getAccessToken(), getMakeUploadPublic()]).then(values => {
     uploadToStrava(values[0], values[1], values[2]).then(message => {
-      bus.trigger('watch.activities.upload.progress.stop', { name: item.name.replace('.tcx', '.ttbin') });
+      bus.trigger('watch.activities.upload.progress.stop', { name: values[0].replace('.tcx', '.ttbin') });
       bus.trigger('watch.successdialog.message', message);
-      unlinkActivity(item);
+      unlinkActivity(value[0]);
     }, message => {
-      bus.trigger('watch.activities.upload.progress.stop', { name: item.name.replace('.tcx', '.ttbin') });
+      bus.trigger('watch.activities.upload.progress.stop', { name: values[0].replace('.tcx', '.ttbin') });
       bus.trigger('watch.successdialog.message', message);
-      unlinkActivity(item);
+      unlinkActivity(value[0]);
     });
   }, message => {
     console.error(message);
-    bus.trigger('watch.activities.upload.progress.stop', { name: item.name.replace('.tcx', '.ttbin') });
+    bus.trigger('watch.activities.upload.progress.stop', { name: values[0].replace('.tcx', '.ttbin') });
     bus.trigger('watch.successdialog.message', message);
-    unlinkActivity(item);
+    unlinkActivity(value[0]);
   });
 });
 
