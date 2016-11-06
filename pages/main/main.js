@@ -153,7 +153,7 @@ bus.on('watch.update.gps', function() {
   bus.trigger('watch.progress.start');
   exec('/usr/local/bin/ttwatch', ['--update-gps'],
     (error, stdout, stderr) => {
-      if (error !== null) {
+      if ((error !== null) || (null !== stderr && '' !== stderr)) {
         console.error(error);
         bus.trigger('watch.successdialog.message', stderr);
       } else {
@@ -168,7 +168,7 @@ bus.on('watch.update.time', function() {
   bus.trigger('watch.progress.start');
   exec('/usr/local/bin/ttwatch', ['--set-time'],
     (error, stdout, stderr) => {
-      if (error !== null) {
+      if ((error !== null) || (null !== stderr && '' !== stderr))  {
         console.error(error);
         bus.trigger('watch.successdialog.message', stderr);
       } else {
