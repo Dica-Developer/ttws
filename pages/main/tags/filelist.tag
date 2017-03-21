@@ -26,6 +26,7 @@
 
   <script>
     const fs = require('fs');
+    const homeFolder = process.env[(process.platform == 'win32') ? 'USERPROFILE' : 'HOME'];
     var that = this;
 
     this.files=[];
@@ -81,10 +82,10 @@
     });
 
     this.opts.bus.on('watch.activities.update', function() {
-      findTtbinFiles('/home/ms/.ttws/');
+      findTtbinFiles(homeFolder + '/.ttws/');
     });
 
-    findTtbinFiles('/home/ms/.ttws/');
+    findTtbinFiles(homeFolder + '/.ttws/');
   </script>
 </filelist>
 
