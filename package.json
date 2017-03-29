@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node_modules/.bin/electron .",
-    "build": "node_modules/.bin/electron-packager . ttws --platform linux --arch x64 --out dist/ --ignore \"(^app|^dist|^node_modules/electron.*)\"",
+    "build": "node_modules/.bin/electron-packager . ttws --platform linux --arch x64 --out dist/ --ignore \"(\\.gitignore|^app|^dist|^node_modules/electron.*)\" && chmod -R a+r dist/ttws-linux-x64 && find dist/ttws-linux-x64/resources/app -type d | xargs chmod a+x",
     "deb64": "node_modules/.bin/electron-installer-debian --src dist/ttws-linux-x64/ --dest dist/installers/ --arch amd64"
   },
   "repository": {
