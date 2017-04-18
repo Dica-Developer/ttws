@@ -10,6 +10,8 @@ riot.mount('icon', { bus: bus });
 riot.mount('filelist', { bus: bus });
 riot.mount('successdialog', { bus: bus });
 
+const homeFolder = process.env[(process.platform == 'win32') ? 'USERPROFILE' : 'HOME'];
+
 function getVersion() {
   bus.trigger('watch.progress.start');
   exec('/usr/local/bin/ttwatch', ['-v'],
@@ -181,7 +183,7 @@ bus.on('watch.update.time', function() {
 
 bus.on('watch.download.activities', function() {
   bus.trigger('watch.progress.start');
-  exec('/usr/local/bin/ttwatch', ['--activity-store=/home/ms/.ttws', '--get-activities'],
+  exec('/usr/local/bin/ttwatch', ['--activity-store=' + homeFolder + '/.ttws', '--get-activities'],
     (error, stdout, stderr) => {
       if (error !== null) {
         console.error(error);
