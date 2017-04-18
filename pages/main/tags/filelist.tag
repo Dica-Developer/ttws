@@ -61,13 +61,17 @@
     }
 
     function findTtbinFiles(directory) {
-      fs.readdir(directory, function (error, files) {
-        if (null !== error) {
-          that.opts.bus.trigger('watch.successdialog.message', 'Error on reading local activities: ' + error);
-        } else {
-          let result = collectFiles(files, directory);
-          that.update({
-            files: result
+      fs.access(directory, fs.constants.F_OK, (accessError) => {
+        if (!accessError) {
+          fs.readdir(directory, function (error, files) {
+            if (null !== error) {
+              that.opts.bus.trigger('watch.successdialog.message', 'Error on reading local activities: ' + error);
+            } else {
+              let result = collectFiles(files, directory);
+              that.update({
+                files: result
+              });
+            }
           });
         }
       });
