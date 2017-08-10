@@ -8,6 +8,8 @@ the firmware, GPSQuickFix and time of the watch. It shows also metadata like fir
 You need to have the [ttwatch](https://github.com/ryanbinns/ttwatch) utility pre-installed on your system.
 Later versions of ttws may have them included.
 
+[![BCH compliance](https://bettercodehub.com/edge/badge/Dica-Developer/ttws?branch=master)](https://bettercodehub.com/)
+
 ## Installation
 
 1. Download the latest release from the [release page](https://github.com/Dica-Developer/ttws/releases)
