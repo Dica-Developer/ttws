@@ -79,6 +79,8 @@ function uploadToStrava(item, accessToken, isPublicUpload) {
       activityType = 'run';
     } else if (item.name.startsWith('Cycling')) {
       activityType = 'ride';
+    } else if (item.name.startsWith('Pool')) {
+      activityType = 'swim';
     } else {
       console.warn('ttws cannot automatically detect the activity type of the file "' + item.name + '", if you think it should. Please report this to ttws and include this message. Thanks.');
     }
