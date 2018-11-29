@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node_modules/.bin/electron .",
     "build": "node_modules/.bin/electron-packager . ttws --platform linux --arch x64 --out dist/ --ignore \"(\\.gitignore|^app|^dist|^node_modules/electron.*)\" && chmod -R a+r dist/ttws-linux-x64 && find dist/ttws-linux-x64/resources/app -type d | xargs chmod a+x",
-    "deb64": "node_modules/.bin/electron-installer-debian --src dist/ttws-linux-x64/ --dest dist/installers/ --arch amd64"
+    "deb64": "node_modules/.bin/electron-installer-debian --src dist/ttws-linux-x64/ --dest dist/installers/ --arch amd64",
+    "snap": "export SNAPCRAFT_BUILD_ENVIRONMENT=lxd; snapcraft cleanbuild"
   },
   "repository": {
     "type": "git",
@@ -37,6 +38,7 @@
   },
   "devDependencies": {
     "electron-installer-debian": "^0.3.1",
-    "electron-packager": "^8.1.0"
+    "electron-packager": "^8.1.0",
+    "electron-installer-snap": "^3.0.0"
   }
 }

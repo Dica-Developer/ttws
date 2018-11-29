@@ -1,0 +1,36 @@
+name: ttws
+version: 1.0.3
+summary: Cross-Platform Benchmark
+description: >
+  Geekbench 4 measures your system's power and tells you whether your
+  computer is ready to roar. How strong is your mobile device or desktop
+  computer? How will it perform when push comes to crunch? These are the
+  questions that Geekbench can answer.
+
+confinement: devmode
+grade: stable
+
+parts:
+  ttws:
+    plugin: dump
+    source: dist/installers/ttws_1.0.3_amd64.deb
+    stage-packages:
+      - heimdal-multidev
+      - libgtk2.0-0
+      - libx11-xcb1
+      - libxtst-dev
+      - libsasl2-dev
+      - libusb-1.0-0-dev
+      - libxss-dev
+      - libcurl4-gnutls-dev
+      - librtmp-dev
+      - libgconf2-dev
+      - zlib1g-dev
+      - libnss3
+      - libasound2-dev
+
+apps:
+  ttws:
+    command: ttws
+    plugs:
+      - x11
