@@ -18,8 +18,8 @@ Later versions of ttws may have them included.
 
 ## Start the application from the source code
 
-1. Install [nodejs+npm](https://nodejs.org/) (I recommend to use [nvm](https://github.com/creationix/nvm) for that)
+1. Install [nodejs+yarn](https://nodejs.org/) (I recommend to use [nvm](https://github.com/creationix/nvm) for that)
 2. git clone https://github.com/Dica-Developer/ttws.git
 3. cd ttws
-1. npm install
-2. npm start
+1. yarn install
+2. yarn start
