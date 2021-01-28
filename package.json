@@ -29,7 +29,7 @@
   "homepage": "https://github.com/Dica-Developer/ttws",
   "dependencies": {
     "blaze": "^3.0.0",
-    "electron": "^7.2.4",
+    "electron": "^9.4.0",
     "electron-json-storage": "^2.0.0",
     "font-awesome": "^4.6.3",
     "mousetrap": "^1.6.0",
